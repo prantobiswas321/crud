@@ -93,19 +93,50 @@ if(!isset($_SESSION["adminEmail"])){
             </div>
             <div id="layoutSidenav_content">
                 <main>
+                    <br> <br>
                     <div class="container-fluid px-4">
                         
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="adminHome.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">User List</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
-                                <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-                                .
-                            </div>
-                        </div>
+
+                                <br> <br>
+                                <div class="container">
+                                  <!-- <h2>Bordered Table</h2> -->
+                                  <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                           $conn = mysqli_connect('localhost','root','','crud');
+                                           $select = "SELECT * FROM USER";
+                                           $run = mysqli_query($conn,$select);
+                                           while($row_user = mysqli_fetch_array($run)){
+
+                                            $user_name = $row_user['user_name'];
+                                            $user_email = $row_user['user_email'];
+                                            $user_status = $row_user['user_status'];
+                                        ?>
+                                      <tr>
+                                        <td><?php echo $user_name ?></td>
+                                        <td><?php echo $user_email ?></td>
+                                        <td><a href="#"><?php echo $user_status ?></a></td>
+                                        <td><a class="btn btn-success" href="">Edit</a></td>
+                                        <td><a class="btn btn-danger" href="adminHome.php">Delete</a></td>
+                                      </tr>
+                                      <?php } ?>
+                                    </tbody>
+                                  </table>
+                                </div>
                        
                         
                     </div>
