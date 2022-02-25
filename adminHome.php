@@ -21,6 +21,24 @@ if(!isset($_SESSION["adminEmail"])){
 </html> -->
 
 
+<?php
+                                
+$conn = mysqli_connect('localhost','root','','crud');
+if(isset($_GET['del'])){
+    $del_id = $_GET['del'];
+    $delete = "DELETE FROM user WHERE user_id='$del_id'";
+    $run_del = mysqli_query($conn,$delete);
+    if($run_del === true){
+        echo "Record has been deleted";
+    }
+    else{
+        echo "Failed, try again";
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -121,7 +139,7 @@ if(!isset($_SESSION["adminEmail"])){
                                            $select = "SELECT * FROM USER";
                                            $run = mysqli_query($conn,$select);
                                            while($row_user = mysqli_fetch_array($run)){
-
+                                            $user_id = $row_user['user_id'];
                                             $user_name = $row_user['user_name'];
                                             $user_email = $row_user['user_email'];
                                             $user_status = $row_user['user_status'];
@@ -131,12 +149,13 @@ if(!isset($_SESSION["adminEmail"])){
                                         <td><?php echo $user_email ?></td>
                                         <td><a href="#"><?php echo $user_status ?></a></td>
                                         <td><a class="btn btn-success" href="">Edit</a></td>
-                                        <td><a class="btn btn-danger" href="adminHome.php">Delete</a></td>
+                                        <td><a class="btn btn-danger" href="adminHome.php?del=<?php echo $user_id ?>">Delete</a></td>
                                       </tr>
                                       <?php } ?>
                                     </tbody>
                                   </table>
                                 </div>
+
                        
                         
                     </div>
