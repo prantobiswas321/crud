@@ -99,16 +99,26 @@ if(!isset($_SESSION["userEmail"])){
                             // }
                             if(isset($_POST['upload_btn'])){
                                 $file_name = $_POST['file_name'];
-                                $txt_name = $_FILES['txt_name']['name'];
-                                $tmp_name = $_FILES['txt_name']['tmp_name'];
+                                // $txt_name = $_FILES['txt_name']['name'];
+                                // $tmp_name = $_FILES['txt_name']['tmp_name'];
+                                $file =$_FILES['txt_name'];
+                                $filename= $file['name'];
+                                $filepath=$file['tmp_name'];
+                                $fileerror=$file['error'];
+                                if($fileerror == 0){
+                                    $destfile='upload/'.$filename;
+                                    move_uploaded_file($filepath,$destfile);
+                                }
 
-                                $insert = "INSERT INTO file(file_name,txt_file) VALUES('$file_name','$txt_name')";
+
+
+                                $insert = "INSERT INTO file(file_name,txt_file) VALUES('$file_name','$destfile')";
 
                                 $run_insert = mysqli_query($conn,$insert);
 
                                 if($run_insert===true){
                                     echo "File uploaded";
-                                    move_uploaded_file($tmp_name,"upload/$txt_name");
+                                    // move_uploaded_file($tmp_name,"upload/$txt_name");
                                 }
                                 else{
                                     echo "Failed, try again";
@@ -118,6 +128,23 @@ if(!isset($_SESSION["userEmail"])){
 
                            
                         ?>
+
+                        
+                        <!-- $conn = mysqli_connect('localhost','root','','crud');
+                        
+                        $file =fopen("upload/a.txt","r");
+                        
+                        while(!feof($file)){
+                            $content = fgets($file);
+                            $carray = explode(",",$content);
+                            list($number,$fname,$lname,$email,$state,$zip)=$carray;
+                            $sql = "INSERT INTO `data` (`number`, `first_name`, `last_name`, `email`, `state`, `zip`) VALUES ('$number', '$fname', '$lname', '$email', '$state', '$zip')";
+                            $conn->query($sql);
+                        }
+                    
+                        fclose($file); -->
+                        
+                        
 
 
                 </main>
