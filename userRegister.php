@@ -19,7 +19,8 @@ if(!isset($_SESSION["adminEmail"])){
         $insert = "INSERT INTO user(user_name,user_email,user_password,user_status) VALUES('$userName','$userEmail','$userPassword','$userStatus')";
         $run_insert = mysqli_query($conn,$insert);
         if($run_insert === true){
-            echo "Data has been inserted";
+            // echo "Data has been inserted";
+            header("location: adminHome.php");
         }
         else{
             echo "Failed, try again";

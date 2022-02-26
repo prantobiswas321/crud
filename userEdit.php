@@ -68,8 +68,6 @@ if(!isset($_SESSION["adminEmail"])){
                                             
                                             <div class="text-center mt-4 mb-0">
                                                 <input class="btn text-white bg-primary" name="submit_btn" type="submit" value="Update">
-
-                                                <a class="btn btn-success" href="adminHome.php">View user</a>
                                             </div>
                                             
                                         </form>
@@ -94,7 +92,8 @@ if(!isset($_SESSION["adminEmail"])){
                     $update = "UPDATE user SET user_name='$euserName', user_email='$euserEmail', user_password='$euserPassword', user_status='$euserStatus' WHERE user_id='$edit_id'";
                     $run_update = mysqli_query($conn,$update);
                     if($run_update === true){
-                        echo "Data has been updated";
+                        // echo "Data has been updated";
+                        header("location: adminHome.php");
                     }
                     else{
                         echo "Failed, try again";
