@@ -16,7 +16,7 @@ if(!isset($_SESSION["userEmail"])){
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin Home</title>
+        <title>File Upload</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -75,12 +75,52 @@ if(!isset($_SESSION["userEmail"])){
                         
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="userHome.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Data show</li>
+                            <li class="breadcrumb-item active">File upload</li>
                         </ol>
 
-                                
+                        <form class="container" action="" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <input class="form-control" placeholder="File Name" name="file_name" type="text">
+                        <label for="formFile" class="form-label"></label>
+                            <input class="form-control" type="file" name="txt_name" id="formFile">
+                        </div>
+                        
+                        <input class="btn btn-primary text-white" name="upload_btn" type="submit" value="Upload">
+                                            
+                        </form>
+                        
+                        <?php
+                            $conn = mysqli_connect('localhost','root','','crud');
+                            // if(mysqli_connect_errno()){
+                            //     echo "connection fail";
+                            // }
+                            // else{
+                            //     echo "connection OK";
+                            // }
+                            if(isset($_POST['upload_btn'])){
+                                $file_name = $_POST['file_name'];
+                                $txt_name = $_FILES['txt_name']['name'];
+                                $tmp_name = $_FILES['txt_name']['tmp_name'];
+
+                                $insert = "INSERT INTO file(file_name,txt_file) VALUES('$file_name','$txt_name')";
+
+                                $run_insert = mysqli_query($conn,$insert);
+
+                                if($run_insert===true){
+                                    echo "File uploaded";
+                                    move_uploaded_file($tmp_name,"upload/$txt_name");
+                                }
+                                else{
+                                    echo "Failed, try again";
+                                }
+
+                            }
+
+                           
+                        ?>
+
+
                 </main>
-                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
