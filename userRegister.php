@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION["adminEmail"])){
+    header("location: adminLogin.php");
+}
+?>
+
+
+
 <?php 
     $conn=mysqli_connect('localhost','root','','crud');
 
@@ -5,7 +14,6 @@
         $userName = $_POST['userName'];
         $userEmail = $_POST['userEmail'];
         $userPassword = $_POST['userPassword'];
-        // $userName = $_POST['userName'];
         $userStatus = 'active';
 
         $insert = "INSERT INTO user(user_name,user_email,user_password,user_status) VALUES('$userName','$userEmail','$userPassword','$userStatus')";
@@ -32,7 +40,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login - SB Admin</title>
+        <title>User Register</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>

@@ -20,7 +20,7 @@ if(!isset($_SESSION["adminEmail"])){
 </body>
 </html> -->
 
-
+<!-- delete user -->
 <?php
                                 
 $conn = mysqli_connect('localhost','root','','crud');
@@ -47,7 +47,7 @@ if(isset($_GET['del'])){
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>CRUD</title>
+        <title>Admin Home</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -58,18 +58,6 @@ if(isset($_GET['del'])){
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             
-            <!-- Navbar-->
-            <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul> -->
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -136,7 +124,7 @@ if(isset($_GET['del'])){
                                         <?php
 
                                            $conn = mysqli_connect('localhost','root','','crud');
-                                           $select = "SELECT * FROM USER";
+                                           $select = "SELECT * FROM user";
                                            $run = mysqli_query($conn,$select);
                                            while($row_user = mysqli_fetch_array($run)){
                                             $user_id = $row_user['user_id'];
@@ -148,7 +136,7 @@ if(isset($_GET['del'])){
                                         <td><?php echo $user_name ?></td>
                                         <td><?php echo $user_email ?></td>
                                         <td><a href="#"><?php echo $user_status ?></a></td>
-                                        <td><a class="btn btn-success" href="">Edit</a></td>
+                                        <td><a class="btn btn-success" href="userEdit.php?edit=<?php echo $user_id ?>">Edit</a></td>
                                         <td><a class="btn btn-danger" href="adminHome.php?del=<?php echo $user_id ?>">Delete</a></td>
                                       </tr>
                                       <?php } ?>
